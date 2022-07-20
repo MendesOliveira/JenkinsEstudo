@@ -4,7 +4,11 @@ pipeline {
     stages {
         stage('Build') {
             agent {
-                docker { image 'maven' }
+                    docker {
+                      image 'maven:3-alpine'
+                      label 'my-defined-label'
+                      args  '-v /tmp:/tmp'
+                  }
             }
             steps {
                 sh "mvn package -Dmaven.test.skip=true"
